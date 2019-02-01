@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+ <h2> {{ the_title }}</h2>
+
+
+    <p>The task you created is:</p>
+
+<table>
+    <tr> <td>Name: </td> <td>  {{ taskname }} </td></tr>
+    <tr> <td>Details: </td> <td>  {{ taskdetail }} </td></tr>
+    <tr> <td>Deadline: </td> <td>  {{ taskdeadline }} </td></tr>
+
+
+</table>
+{% endblock %}
