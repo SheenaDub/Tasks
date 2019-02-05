@@ -7,7 +7,9 @@
 
 
 function displayTasks(){
-  // jquery to retrieve json data
+    //window.location.reload(true);
+    // jquery to retrieve json data
+
   $.getJSON("http://127.0.0.1:5000/display", function(data) {
     console.log("type of data: ", typeof data);
 
@@ -15,6 +17,7 @@ function displayTasks(){
     var datasize = Object.keys(data).length;
     console.log("data size", datasize);
 
+    // create array of divs
     var divArray = [];
     for (var i = 0; i < datasize; i++){
         var div = document.createElement('div');
@@ -22,9 +25,10 @@ function displayTasks(){
         div.className="taskDiv";
         divArray.push(div)
         document.body.appendChild(div);
+        console.log("this div id: ", div.id);
     }
 
-
+//create edit buttons
     var editButtonArray = [];
     for (var i = 0; i < datasize; i++){
 
@@ -37,7 +41,7 @@ function displayTasks(){
         editButtonArray.push(edButton);
     }
 
-
+// create delete buttons
     var delButtonArray = [];
     for (var i = 0; i < datasize; i++){
         var delButton = document.createElement("button");
@@ -61,9 +65,8 @@ function displayTasks(){
         f.appendChild(s);
     }
 
-
+// populate each line of with task data
     for (var i = 0; i < datasize; i++){
-
 
         var iD = data[i].id;
         var toDoBy = data[i].taskdeadline;
@@ -73,13 +76,12 @@ function displayTasks(){
         var deleteButton = delButtonArray[i];
         deleteButton.id="delbutton_" + iD;
         var thisDiv = divArray[i];
-        console.log("edit button", editButton);
-        console.log("del Form array", delFormArray);
+
 
         var oneLine = "<b>  Task id: </b> "+ iD + " <b>  Task: </b>" + name + " " +  "<b>  Deadline: </b>" + toDoBy;
 
         thisDiv.innerHTML = oneLine;
-        //thisDiv.appendChild(editButton);
+        thisDiv.appendChild(editButton);
         thisDiv.appendChild(deleteButton);
 
 
@@ -98,3 +100,37 @@ function displayTasks(){
 
 }// end function display
 
+
+
+// to delete task - first accesses id of button clicked
+$(document).on('click', "[id^=delbutton_]", function(){
+
+    var buttonId = jQuery(this).attr("id");
+    var chars = buttonId.split("_");
+    var thisID = parseInt(chars[1]);
+    alert(thisID);
+    console.log(buttonId);
+
+    //"div_" + i;
+
+    //$('#' + buttonId).remove();
+
+    $.ajax({
+  type : 'POST',
+  url : "/delete",
+  data : {thisID}
+});
+
+    //location.reload(true);
+window.location.reload(true);
+});
+
+
+// to delete task - first accesses id of button clicked
+$(document).on('click', "[id=clearTasks]", function(){
+    alert("clear all has been called");
+    $.ajax({
+  type : 'POST',
+  url : "/clearAll",
+});
+});

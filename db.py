@@ -58,6 +58,19 @@ def getOneTask(name):
     closeConnection()
     return r
 
+def deleteATask(id):
+    # Prepare SQL query to DELETE required records
+    _SQL = "DELETE FROM tasks WHERE id = '%d'" % (id)
+    print("delete a task function in db.py called")
+    try:
+        # Execute the SQL command
+        cursor.execute(_SQL)
+        connection.commit()
+        closeConnection()
+    except:
+        # Rollback in case there is any error
+        connection.rollback()
+
 
 # FUNCTION TO CLEAN ALL TASKS!!!!
 def empty_table():

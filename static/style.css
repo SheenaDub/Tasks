@@ -37,3 +37,45 @@ input[type=text], select {
   background-color: #f2f2f2;
   padding: 20px;
 }
+
+.taskDiv {
+    background-color: black;
+    margin: 20px;
+    color: white;
+    font-family: 'Rock Salt', cursive;
+    text-align: center;
+}
+
+
+
+button {
+    background-color: darkred; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 25px;
+    font-family: 'Mate', serif;
+    font-weight: bold;
+}
+
+button:hover{
+     background: #383;
+}
+
+.taskEditButton {
+    background-color: darkred; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 25px;
+    font-family: 'Mate', serif;
+    font-weight: bold;
+}

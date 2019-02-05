@@ -38,8 +38,22 @@ def displayTasks():
     tasks = getTasks()
     return tasks
 
+@app.route("/delete", methods=['POST','GET'])
+def delTask():
+    id = int(request.form['thisID'])
+    createConnection()
+    deleteATask(id)
+    print("delete called ", id)
+    print("id type ", type(id))
+    return render_template('index.html', the_title='Welcome!')
 
 
+@app.route("/clearAll", methods=['POST','GET'])
+def clearAllTasks():
+    createConnection()
+    empty_table()
+    print("clear all called ", id)
+    return 'a string'
 
 
 if __name__ == '__main__':
