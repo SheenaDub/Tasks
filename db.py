@@ -10,7 +10,6 @@ dbconfig = {
     'database':'tasks',
 }
 
-
 def createConnection():
     global connection
     while True:
@@ -26,14 +25,16 @@ def createConnection():
             sleep(10)
             pass
 
+def closeConnection():
+    cursor.close()
+    connection.close()
 
 def writeTask(name, detail, theDeadline):
     _SQL = """insert into tasks (taskname, taskdetail, taskdeadline) values (%s, %s, %s)"""
     try:
         cursor.execute(_SQL, (name, detail, theDeadline))
         connection.commit()
-        cursor.close()
-        connection.close()
+        closeConnection()
     except:
         connection.rollback()
         pass
@@ -43,8 +44,7 @@ def getTasks():
     cursor.execute(_SQL)
     r = [dict((cursor.description[i][0], value) \
                for i, value in enumerate(row)) for row in cursor.fetchall()]
-    cursor.close()
-    connection.close()
+    closeConnection()
     jsonTasks = json.dumps(r)
     return jsonTasks
 
@@ -55,7 +55,7 @@ def getOneTask(name):
     cursor.execute(_SQL)
     r = [dict((cursor.description[i][0], value) \
                for i, value in enumerate(row)) for row in cursor.fetchall()]
-    cursor.close()
+    closeConnection()
     return r
 
 
@@ -64,8 +64,7 @@ def empty_table():
     try:
         cursor.execute('TRUNCATE TABLE tasks')
         connection.commit()
-        cursor.close()
-        connection.close()
+        closeConnection()
 
     except Exception as error:
         connection.rollback()
