@@ -8,6 +8,9 @@
 
 function displayTasks(){
     //window.location.reload(true);
+
+
+    window.location.reload(true);
     // jquery to retrieve json data
 
   $.getJSON("http://127.0.0.1:5000/display", function(data) {
@@ -88,7 +91,6 @@ function displayTasks(){
     } // end for loop
 
 
-
   })
     // end function data
   .done(function() { console.log( "second success" );
@@ -125,12 +127,14 @@ $(document).on('click', "[id^=delbutton_]", function(){
 window.location.reload(true);
 });
 
-
-// to delete task - first accesses id of button clicked
+// clears all tasks from db
 $(document).on('click', "[id=clearTasks]", function(){
     alert("clear all has been called");
     $.ajax({
   type : 'POST',
   url : "/clearAll",
 });
+
+
+window.location.reload(true);
 });

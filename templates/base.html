@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="static/style.css" />
     <link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
 
+    <link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
+
+
 </head>
 <body>
 
@@ -18,7 +21,9 @@
 
 {% endblock %}
 
+<br><br><br><br>
 
+<div class="buttonRow">
 
 <button value="view all tasks" class="displayEntries" type="button" id="displayTasks"> View all tasks</button>
 <div class="displayEntries"></div>
@@ -27,10 +32,11 @@
 <button value="Clear all tasks" class="clearEntries" type="button" id="clearTasks"> Clear all tasks</button>
 <div class="clearEntries"></div>
 
-<!--<form action="/showall" method="post">-->
-    <!--<button name="showAll" type="submit">Show all tasks</button>-->
-<!--</form>-->
+<form action="/createnew" id="formButton">
+    <input type="submit" value="Create a new task" />
+</form>
 
+</div>
 
 
 <script src="../static/js/jquery-3.3.1.js"></script>

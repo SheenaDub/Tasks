@@ -75,6 +75,7 @@ def deleteATask(id):
 # FUNCTION TO CLEAN ALL TASKS!!!!
 def empty_table():
     try:
+        print("empty table in db.py called: ")
         cursor.execute('TRUNCATE TABLE tasks')
         connection.commit()
         closeConnection()

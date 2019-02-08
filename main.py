@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 
 from db import *
 
@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello() -> 'html':
-	return render_template('index.html', the_title='Welcome!')
+	return render_template('index.html')
 
 @app.route('/createnew')
 def create() -> 'html':
@@ -24,6 +24,10 @@ def showNew() -> 'html':
 	return render_template('shownewtask.html', the_title='Your new task', taskname=name, taskdetail=detail, taskdeadline=deadline,)
 
 
+
+	#return render_template('shownewtask.html', the_title='Your new task', taskname=name, taskdetail=detail, taskdeadline=deadline,)
+
+#redirect(request.url)
 
 @app.route('/showall', methods=['POST'])
 def showAllTasks():
@@ -52,8 +56,8 @@ def delTask():
 def clearAllTasks():
     createConnection()
     empty_table()
-    print("clear all called ", id)
-    return 'a string'
+    print("clear all called ")
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
