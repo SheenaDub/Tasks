@@ -5,9 +5,16 @@
  <h2> {{ the_title }}</h2>
 
 
-    <p>Here are all your tasks:</p>
-
-
-
+    <p>Your tasks:</p>
+<ul style="list-style: none;">
+    {% for task in tasks %}
+     <li><a href = "{{ url_for('showSelectedTask', taskname=task['taskname']) }}">
+{{ task['taskname'] }}
+    </a></li>
+    {% endfor %}
+</ul>
+<p>Click a task for more details or to edit/delete:</p>
 
 {% endblock %}
+
+

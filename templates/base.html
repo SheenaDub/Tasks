@@ -25,15 +25,14 @@
 
 <div class="buttonRow">
 
-<button value="view all tasks" class="displayEntries" type="button" id="displayTasks"> View all tasks</button>
-<div class="displayEntries"></div>
-
-
 <button value="Clear all tasks" class="clearEntries" type="button" id="clearTasks"> Clear all tasks</button>
-<div class="clearEntries"></div>
 
 <form action="/createnew" id="formButton">
     <input type="submit" value="Create a new task" />
+</form>
+
+<form action="/showall">
+    <input type="submit" value="Show all tasks" />
 </form>
 
 </div>
@@ -43,3 +42,7 @@
 <script src="../static/js/javascript.js"></script>
 </body>
 </html>
+
+<!--
+<button value="view all tasks" class="displayEntries" type="button" id="displayTasks"> View all tasks</button>
+<div class="displayEntries"></div>-->

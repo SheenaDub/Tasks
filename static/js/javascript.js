@@ -10,10 +10,10 @@ function displayTasks(){
     //window.location.reload(true);
 
 
-    window.location.reload(true);
+    //window.location.reload(true);
     // jquery to retrieve json data
 
-  $.getJSON("http://127.0.0.1:5000/display", function(data) {
+  $.getJSON("http://127.0.0.1:5000/showall", function(data) {
     console.log("type of data: ", typeof data);
 
     console.log("success", data);
@@ -27,6 +27,7 @@ function displayTasks(){
         div.id="div_" + i;
         div.className="taskDiv";
         divArray.push(div)
+        //document.getElementById('taskDisplay').appendChild(div);
         document.body.appendChild(div);
         console.log("this div id: ", div.id);
     }

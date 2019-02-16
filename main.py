@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 
 from db import *
 
@@ -23,17 +23,22 @@ def showNew() -> 'html':
 	writeTask(name,detail,deadline)
 	return render_template('shownewtask.html', the_title='Your new task', taskname=name, taskdetail=detail, taskdeadline=deadline,)
 
-
-
-	#return render_template('shownewtask.html', the_title='Your new task', taskname=name, taskdetail=detail, taskdeadline=deadline,)
-
-#redirect(request.url)
-
-@app.route('/showall', methods=['POST'])
+@app.route('/showall', methods=['POST','GET'])
 def showAllTasks():
-	print("this shows all tasks")
-	getTasks()
-	return render_template('showall.html', the_title='Your saved tasks')
+    createConnection()
+    tasks = getTasksAsList()
+    return render_template('showall.html', tasks=tasks, the_title='All tasks!')
+
+
+@app.route('/<taskname>', methods=['POST','GET'])
+def showSelectedTask(taskname):
+    createConnection()
+    task = getOneTask(taskname)
+    print("this single task: ", task)
+    print("type of task: ", type(task))
+    return render_template('showone.html', task=task)
+
+
 
 
 @app.route("/display", methods=['POST','GET'])

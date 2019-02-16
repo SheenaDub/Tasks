@@ -46,9 +46,16 @@ def getTasks():
                for i, value in enumerate(row)) for row in cursor.fetchall()]
     closeConnection()
     jsonTasks = json.dumps(r)
+    print("in getTasks. datatype of r: ", type(r))
     return jsonTasks
 
-
+def getTasksAsList():
+    _SQL = """select id, taskname, taskdetail, taskdeadline from tasks"""
+    cursor.execute(_SQL)
+    r = [dict((cursor.description[i][0], value) \
+               for i, value in enumerate(row)) for row in cursor.fetchall()]
+    closeConnection()
+    return r
 
 def getOneTask(name):
     _SQL = "select id, taskname, taskdetail, taskdeadline from tasks WHERE taskname = '%s'" % (name)
