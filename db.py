@@ -67,11 +67,7 @@ def getOneTask(name):
 
 def deleteATaskbyName(name):
     # Prepare SQL query to DELETE required records
-    #_SQL = """DELETE FROM tasks WHERE taskname = '%s'""" % (name)
-    print("delete a task by name function in db.py called")
-    print("task to be deleted is ", name)
     newname = name.strip()
-    print("task name after strip function ", newname)
     _SQL = "DELETE FROM tasks WHERE taskname = '%s'" % (newname)
     try:
         # Execute the SQL command
@@ -86,11 +82,9 @@ def deleteATaskbyName(name):
 
 
 
-
 def deleteATask(id):
     # Prepare SQL query to DELETE required records
     _SQL = "DELETE FROM tasks WHERE id = '%d'" % (id)
-    print("delete a task function in db.py called")
     try:
         # Execute the SQL command
         cursor.execute(_SQL)

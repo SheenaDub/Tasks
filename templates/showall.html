@@ -2,18 +2,30 @@
 
 {% block body %}
 
- <h2> {{ the_title }}</h2>
+<br>
+<div class="encloseAll">
+
+    {% if tasks %}
 
 
-    <p>Your tasks:</p>
+    <h2> {{ the_title }}</h2>
+    <br>
 <ul style="list-style: none;">
     {% for task in tasks %}
-     <li><a href = "{{ url_for('showSelectedTask', taskname=task['taskname']) }}">
-{{ task['taskname'] }}
+      <li><a href = "{{ url_for('showSelectedTask', taskname=task['taskname']) }}"> <div class="showAllDisplay">
+{{ task['taskname'] }} </div>
     </a></li>
     {% endfor %}
 </ul>
-<p>Click a task for more details or to edit/delete:</p>
+<br>
+<p>Click a task for more details or to edit or delete it</p>
+{% else %}
+    <p>You have no tasks stored currently</p>
+
+    {% endif %}
+
+    </div>
+
 
 {% endblock %}
 

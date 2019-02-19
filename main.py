@@ -26,7 +26,7 @@ def showNew() -> 'html':
 def showAllTasks():
     createConnection()
     tasks = getTasksAsList()
-    return render_template('showall.html', tasks=tasks, the_title='All tasks!')
+    return render_template('showall.html', tasks=tasks, the_title='All your tasks')
 
 @app.route('/<string:taskname>', methods=['POST','GET'])
 def showSelectedTask(taskname):
@@ -84,15 +84,7 @@ def displayTasks():
     tasks = getTasks()
     return tasks
 
-#old delete method -prob going to drop this
-# @app.route("/delete", methods=['POST','GET'])
-# def delTask():
-#     id = int(request.form['thisID'])
-#     createConnection()
-#     deleteATask(id)
-#     print("delete called ", id)
-#     print("id type ", type(id))
-#     return render_template('index.html', the_title='Welcome!')
+
 
 
 if __name__ == '__main__':

@@ -2,16 +2,15 @@
 
 {% block body %}
 
- <h2> {{ the_title }}</h2>
-
+<div class="encloseAll">
 <ul style="list-style: none;">
 
 
 <form action="/delete" method="POST">
 
- <li>Name: {{ task[0]['taskname'] }} </li>
-  <li>Details: {{ task[0]['taskdetail'] }}</li>
-  <li>Deadline: {{ task[0]['taskdeadline'] }}</li>
+ <div id="showOneDisplay">  <li><strong>Task name: </strong>{{ task[0]['taskname'] }} </li>
+     <li><strong>Task details:</strong> {{ task[0]['taskdetail'] }}</li>
+  <li><strong>Deadline: </strong>{{ task[0]['taskdeadline'] }}</li></div>
 <input type="hidden" name="deleteTask" value=" {{ task[0]['taskname'] }} " />
     <input type="submit" value="Delete this task">
 
@@ -27,12 +26,6 @@
 
 </ul>
 
-<!--<form action="/edit" method="POST">-->
-    <!--<input type="submit" value="Edit this task" />-->
-<!--</form>-->
-
-<!--<form action="/delete" method="POST">-->
-    <!--<input type="submit" name = "Laundry" value="Delete this task" />-->
-<!--</form>-->
+    </div>
 
 {% endblock %}
