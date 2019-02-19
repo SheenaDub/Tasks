@@ -65,6 +65,28 @@ def getOneTask(name):
     closeConnection()
     return r
 
+def deleteATaskbyName(name):
+    # Prepare SQL query to DELETE required records
+    #_SQL = """DELETE FROM tasks WHERE taskname = '%s'""" % (name)
+    print("delete a task by name function in db.py called")
+    print("task to be deleted is ", name)
+    newname = name.strip()
+    print("task name after strip function ", newname)
+    _SQL = "DELETE FROM tasks WHERE taskname = '%s'" % (newname)
+    try:
+        # Execute the SQL command
+        cursor.execute(_SQL)
+        connection.commit()
+        closeConnection()
+        print("delete success. allegedly")
+    except:
+        print("delete error")
+        # Rollback in case there is any error
+        connection.rollback()
+
+
+
+
 def deleteATask(id):
     # Prepare SQL query to DELETE required records
     _SQL = "DELETE FROM tasks WHERE id = '%d'" % (id)

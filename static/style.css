@@ -1,10 +1,10 @@
 
 
 body
-{background-color: grey;}
+{background-color: lightgray;}
 
 h1, h2{
-    color: white;
+    color: cornflowerblue;
     text-align: center;
 
 
@@ -12,14 +12,15 @@ h1, h2{
 
 h1{
     font-family: 'Rock Salt', cursive;
-    font-size: 4em;
+    font-size: 6em;
     margin: 0}
 
 
 h2{
-    font-family:'Cinzel', Arial;
-    font-size: 1em;
-    margin: 0
+    font-family:'Montserrat', Arial;
+    font-size: 2em;
+    margin: 0;
+    color:cornflowerblue;
 
 
 }
@@ -37,7 +38,7 @@ h2{
 
 input[type=submit] {
 
-      background-color: darkred; /* Green */
+      background-color: cornflowerblue; /* Green */
     border: none;
     color: white;
     padding: 15px 32px;
@@ -46,7 +47,7 @@ input[type=submit] {
     display: inline-block;
     font-size: 20px;
     margin: 25px;
-    font-family: 'Mate', serif;
+    font-family: 'Montserrat', serif;
     font-weight: bold;
 
 }
@@ -92,7 +93,7 @@ input[type=text], select {
 
 .formButton{
 
-    background-color: darkred; /* Green */
+    background-color: cornflowerblue; /* Green */
     border: none;
     color: white;
     padding: 15px 32px;
@@ -101,14 +102,14 @@ input[type=text], select {
     display: inline-block;
     font-size: 20px;
     margin: 25px;
-    font-family: 'Mate', serif;
+    font-family: 'Montserrat', serif;
     font-weight: bold;
 
 
 }
 
 button {
-    background-color: darkred; /* Green */
+    background-color: cornflowerblue; /* Green */
     border: none;
     color: white;
     padding: 15px 32px;
@@ -117,7 +118,7 @@ button {
     display: inline-block;
     font-size: 20px;
     margin: 25px;
-    font-family: 'Mate', serif;
+    font-family: 'Montserrat', serif;
     font-weight: bold;
 }
 
@@ -135,12 +136,17 @@ button:hover{
     display: inline-block;
     font-size: 20px;
     margin: 25px;
-    font-family: 'Mate', serif;
+    font-family: 'Montserrat', serif;
     font-weight: bold;
 }
 
 #displayTasks{
 
+    float:left;
+}
+
+
+#viewAll{
     float:left;
 }
 
