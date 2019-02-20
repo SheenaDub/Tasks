@@ -3,8 +3,7 @@ margin: 0;
 padding: 0;
 }
 
-body
-{background-color: lightgray;}
+
 
 h1, h2{
     color: cornflowerblue;
@@ -28,7 +27,7 @@ h1{
     font-family: 'Rock Salt', cursive;
     font-size: 6em;
 line-height:1.6em;
-    margin: 0}
+    margin-top: 40px;}
 
 
 h2{
@@ -37,8 +36,6 @@ h2{
     line-height:1em;
     margin: 0;
     color:cornflowerblue;
-
-
 }
 
 
@@ -103,7 +100,7 @@ input[type=text], select {
     text-align: center;
 }
 
-.formButton{
+#formButton{
 
     background-color: cornflowerblue; /* Green */
     border: none;
@@ -167,12 +164,12 @@ button:hover{
     float:right;
 }
 
- #showOneDisplay {
+ .showOneDisplay {
      font-color:black;
      font-family: 'Andada', serif;
          font-size: 1.3em;
      line-height:1.9em;
-
+     background-color: #f2f2f2;
 }
 
  .showAllDisplay {
@@ -188,7 +185,7 @@ button:hover{
 }
 
   .encloseAll {
-     background-color: white;
+     background-color: #f2f2f2;
     margin: 20px;
 padding:2em;
     text-align: center;

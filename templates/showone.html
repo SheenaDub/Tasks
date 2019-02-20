@@ -8,7 +8,7 @@
 
 <form action="/delete" method="POST">
 
- <div id="showOneDisplay">  <li><strong>Task name: </strong>{{ task[0]['taskname'] }} </li>
+ <div class="showOneDisplay">  <li><strong>Task name: </strong>{{ task[0]['taskname'] }} </li>
      <li><strong>Task details:</strong> {{ task[0]['taskdetail'] }}</li>
   <li><strong>Deadline: </strong>{{ task[0]['taskdeadline'] }}</li></div>
 <input type="hidden" name="deleteTask" value=" {{ task[0]['taskname'] }} " />

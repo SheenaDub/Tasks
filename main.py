@@ -41,9 +41,26 @@ def showSelectedTask(taskname):
 @app.route('/editselected', methods=['POST','GET'])
 def editSelected() -> 'html':
     task = request.form['editTask']
-    print("edit selected called ", task)
-    print("id type ", type(task))
-    return render_template('editselected.html', the_title='Edit a task', task=task)
+    task = task.strip()
+    createConnection()
+    thisTask = getOneTask(task)
+    return render_template('editselected.html', the_title='Edit a task', thisTask=thisTask)
+
+
+@app.route('/editThisTask', methods=['POST','GET'])
+def editThisTask():
+    name = request.form['taskname'].strip()
+    detail = request.form['taskdetail'].strip()
+    deadline = request.form['taskdeadline'].strip()
+    print("edit this Task called ")
+    print(name)
+    print(detail)
+    print(deadline)
+    createConnection()
+    editTask(name, detail, deadline)
+    return "hello"
+
+
 
 
 @app.errorhandler(404)

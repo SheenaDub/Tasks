@@ -95,6 +95,18 @@ def deleteATask(id):
         connection.rollback()
 
 
+def editTask(name, detail, deadline):
+    _SQL = """UPDATE tasks SET taskname=%s, taskdetail=%s, taskdeadline=%s WHERE taskname =%s"""
+    try:
+        cursor.execute(_SQL, (name, detail, deadline, name))
+        connection.commit()
+        closeConnection()
+    except Exception as error:
+        connection.rollback()
+        print("Exception: ", error)
+        pass
+
+
 # FUNCTION TO CLEAN ALL TASKS!!!!
 def empty_table():
     try:
