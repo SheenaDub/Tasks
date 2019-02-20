@@ -3,15 +3,20 @@
 {% block body %}
 
  <h2> {{ the_title }}</h2>
+<br>
+<div class="encloseAll">
+
+<ul style="list-style: none;">
+
+    <div class="showOneDisplay">
+            <li><strong>Task name: </strong>{{ taskname }} </li>
+            <li><strong>Task details:</strong> {{ taskdetail }}</li>
+            <li><strong>Deadline: </strong>{{ taskdeadline }}</li>
+    </ul>
 
 
-    <p>The task you created is:</p>
-
-<table>
-    <tr> <td>Name: </td> <td>  {{ taskname }} </td></tr>
-    <tr> <td>Details: </td> <td>  {{ taskdetail }} </td></tr>
-    <tr> <td>Deadline: </td> <td>  {{ taskdeadline }} </td></tr>
+</div>
 
 
-</table>
+
 {% endblock %}

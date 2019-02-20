@@ -60,14 +60,20 @@ input[type=submit] {
 .buttonRow{
     width: 80%;
     text-align: center;
+    margin:auto;
 }
 
+.innerButtons{
+display: inline-block;
+    float:left;
 
-.buttonRow button{
-    display: inline-block;
 }
 
-
+.encloseAll::after {
+  content: "";
+  clear: both;
+  display: table;
+}
 
 input[type=text], select {
   width: 100%;
@@ -82,9 +88,8 @@ input[type=text], select {
 }
 
 .formdiv {
-    width: 50%;
+    width: 80%;
   border-radius: 5px;
-  background-color: #f2f2f2;
   padding: 20px;
     margin:auto;
     font-family: 'Andada', serif;
@@ -100,8 +105,12 @@ input[type=text], select {
     text-align: center;
 }
 
-#formButton{
+.row{
+    max-height:20px;
+}
 
+#formButton{
+float:left;
     background-color: cornflowerblue; /* Green */
     border: none;
     color: white;
@@ -113,8 +122,6 @@ input[type=text], select {
     margin: 25px;
     font-family: 'Andada', serif;
     font-weight: bold;
-
-
 }
 
 button {
@@ -161,7 +168,7 @@ button:hover{
 
  #clearTasks{
 
-    float:right;
+
 }
 
  .showOneDisplay {
@@ -189,9 +196,10 @@ button:hover{
     margin: 20px;
 padding:2em;
     text-align: center;
-     width: 40%;
      margin:auto;
       border-radius: 15px;
+      overflow: auto;
+      width:70%;
 
 
 }

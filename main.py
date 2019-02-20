@@ -20,7 +20,7 @@ def showNew() -> 'html':
 	deadline = request.form['taskdeadline']
 	createConnection()
 	writeTask(name,detail,deadline)
-	return render_template('shownewtask.html', the_title='Your new task', taskname=name, taskdetail=detail, taskdeadline=deadline,)
+	return render_template('shownewtask.html', the_title='Your new task', taskname=name, taskdetail=detail, taskdeadline=deadline)
 
 @app.route('/showall', methods=['POST','GET'])
 def showAllTasks():
@@ -52,15 +52,10 @@ def editThisTask():
     name = request.form['taskname'].strip()
     detail = request.form['taskdetail'].strip()
     deadline = request.form['taskdeadline'].strip()
-    print("edit this Task called ")
-    print(name)
-    print(detail)
-    print(deadline)
+    oldname = request.form['oldName'].strip()
     createConnection()
-    editTask(name, detail, deadline)
-    return "hello"
-
-
+    editTask(name, detail, deadline, oldname)
+    return render_template('index.html')
 
 
 @app.errorhandler(404)

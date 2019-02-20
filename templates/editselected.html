@@ -2,7 +2,7 @@
 
 {% block body %}
 
-
+ <h2> {{ the_title }}</h2>
 
 <div class="encloseAll">
     <ul style="list-style: none;">
@@ -12,35 +12,38 @@
             <li><strong>Task details:</strong> {{ thisTask[0]['taskdetail'] }}</li>
             <li><strong>Deadline: </strong>{{ thisTask[0]['taskdeadline'] }}</li>
     </ul>
-    </div>
 
-</div>
+
+
 
 <br>
 <div class="formdiv">
 <form method='POST' action='/editThisTask'>
 
-    <h2> {{ the_title }}</h2>
+
     <br>
 
 <table>
 
-    <p>Change task details:</p><br>
+    <p>Enter new task details:</p><br>
 
     <tr> <td> Task name: </td> <td> <input name="taskname" type="TEXT" width="60" value="{{ thisTask[0]['taskname'] }}" >  </td>    </tr>
     <tr> <td> Detail: </td> <td> <input name="taskdetail" type="TEXT" width="60" value="{{ thisTask[0]['taskdetail'] }}" ></td>    </tr>
     <tr> <td> Deadline: </td> <td> <input name="taskdeadline" type="TEXT" width="60" value="{{ thisTask[0]['taskdeadline'] }}">  </td>    </tr>
+        <input type="hidden" name="oldName" value=" {{ thisTask[0]['taskname'] }} " />
+
 
 
 </table>
 
-<p><input value="Edit task" type="SUBMIT"></p>
+<input value="Edit task" type="SUBMIT" class="innerButtons">
 </form>
 
-    <form action="/" class="formButton">
+    <form action="/" class="formButton innerButtons">
     <input type="submit" value="Cancel" />
 </form>
 
+</div>
 
 </div>
 

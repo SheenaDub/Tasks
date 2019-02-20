@@ -95,10 +95,10 @@ def deleteATask(id):
         connection.rollback()
 
 
-def editTask(name, detail, deadline):
+def editTask(name, detail, deadline, oldname):
     _SQL = """UPDATE tasks SET taskname=%s, taskdetail=%s, taskdeadline=%s WHERE taskname =%s"""
     try:
-        cursor.execute(_SQL, (name, detail, deadline, name))
+        cursor.execute(_SQL, (name, detail, deadline, oldname))
         connection.commit()
         closeConnection()
     except Exception as error:

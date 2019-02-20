@@ -7,12 +7,6 @@
 
 
 function displayTasks(){
-    //window.location.reload(true);
-
-
-    //window.location.reload(true);
-    // jquery to retrieve json data
-
   $.getJSON("http://127.0.0.1:5000/showall", function(data) {
     console.log("type of data: ", typeof data);
 
@@ -112,11 +106,6 @@ $(document).on('click', "[id^=delbutton_]", function(){
     var chars = buttonId.split("_");
     var thisID = parseInt(chars[1]);
     alert(thisID);
-    console.log(buttonId);
-
-    //"div_" + i;
-
-    //$('#' + buttonId).remove();
 
     $.ajax({
   type : 'POST',
@@ -130,12 +119,10 @@ window.location.reload(true);
 
 // clears all tasks from db
 $(document).on('click', "[id=clearTasks]", function(){
-    alert("clear all has been called");
     $.ajax({
   type : 'POST',
   url : "/clearAll",
 });
-
 
 window.location.reload(true);
 });

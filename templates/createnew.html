@@ -2,6 +2,7 @@
 
 {% block body %}
 
+<div class="encloseAll">
 <div class="formdiv">
 <form method='POST' action='/shownewtask'>
 
@@ -19,10 +20,12 @@
 
 </table>
 
-<p><input value="Create task" type="SUBMIT"></p>
+</div>
+
+<input value="Create task" type="SUBMIT" class="innerButtons">
 </form>
 
-    <form action="/" class="formButton">
+    <form action="/" class="innerButtons">
     <input type="submit" value="Cancel" />
 </form>
 
