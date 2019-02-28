@@ -2,7 +2,11 @@
 
 {% block body %}
 
+
+
  <h2> {{ the_title }}</h2>
+
+
 
 <div class="encloseAll">
     <ul style="list-style: none;">
@@ -31,6 +35,7 @@
     <tr> <td> Detail: </td> <td> <input name="taskdetail" type="TEXT" width="60" value="{{ thisTask[0]['taskdetail'] }}" ></td>    </tr>
     <tr> <td> Deadline: </td> <td> <input name="taskdeadline" type="TEXT" width="60" value="{{ thisTask[0]['taskdeadline'] }}">  </td>    </tr>
         <input type="hidden" name="oldName" value=" {{ thisTask[0]['taskname'] }} " />
+        <input type="hidden" name="userID" value=" {{ id }} " />
 
 
 

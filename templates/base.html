@@ -28,20 +28,27 @@
 
 <div class="buttonRow">
 
-<form action="/showall">
+<form method="POST" action="/showall">
+    <input type="hidden" name="userId" value=" {{ id }} " />
     <input type="submit" value="Show all tasks" class="innerButtons"/>
 </form>
 
-
-    <form action="/createnew">
+<form action="/createnew">
     <input type="submit" value="Create a new task" class="innerButtons"/>
 </form>
 
-<button value="Clear all tasks" type="button" id="clearTasks" class="innerButtons"> Clear all tasks</button>
+<form method="POST" action="/clearAll">
+    <input type="hidden" name="userId" value=" {{ id }} " />
+    <input type="submit" value="Clear all tasks" class="innerButtons"/>
+</form>
 
+{% if log %}
 
+<form action="/logout">
+    <input type="submit" value="Log out" class="innerButtons"/>
+</form>
 
-
+{% endif %}
 
 </div>
 

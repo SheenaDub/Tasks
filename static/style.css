@@ -56,6 +56,12 @@ input[type=submit] {
 
 }
 
+.twoForms{
+    width: 80%;
+    text-align: center;
+    margin:auto;
+}
+
 
 .buttonRow{
     width: 80%;
@@ -194,7 +200,7 @@ button:hover{
   .encloseAll {
      background-color: #f2f2f2;
     margin: 20px;
-padding:2em;
+padding:1em;
     text-align: center;
      margin:auto;
       border-radius: 15px;

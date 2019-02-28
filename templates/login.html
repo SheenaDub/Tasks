@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Task Master </title>
+
+    <link rel="stylesheet" href="static/style.css" />
+    <link rel="shortcut icon" href="#" />
+    <link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Andada" rel="stylesheet">
+
+
+</head>
+<body>
+
+<h1>Task Master</h1>
+
+<br>
+
+<h2> {{ title }}</h2><br>
+<div class="encloseAll">
+<div class="formdiv">
+<form method='POST' action='/login'>
+
+    <br>
+
+<table>
+
+    <p>Log in:</p><br>
+
+    <tr> <td> Username: </td> <td> <input name="username" type="TEXT" width="60">  </td>    </tr>
+    <tr> <td> Password: </td> <td> <input name="password" type="TEXT" width="60">  </td>    </tr>
+
+</table>
+
+
+<input value="Log in!" type="SUBMIT" class="innerButtons">
+</form>
+
+</div>
+</div>
+
+<div class="encloseAll" text-align="center" style="padding: 5px;">
+    <br>
+ <p font-size="1.2em"> Want to create a new account?</p>
+    <br>
+<form action="/" display="inline-block">
+    <input type="submit" value="Sign up" display="inline-block"/>
+</form>
+    </div>
+
+<script src="../static/js/jquery-3.3.1.js"></script>
+<script src="../static/js/javascript.js"></script>
+</body>
+</html>

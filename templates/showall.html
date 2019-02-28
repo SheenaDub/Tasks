@@ -8,7 +8,7 @@
     {% if tasks %}
 
 
-    <h2> {{ the_title }}</h2>
+    <h2> {{ uname }}'s tasks</h2>
     <br>
 <ul style="list-style: none;">
     {% for task in tasks %}
@@ -20,6 +20,8 @@
 <br>
 <p>Click a task for more details or to edit or delete it</p>
 {% else %}
+
+    <h2>Hi, {{ uname }}</h2><br>
     <p>You have no tasks stored currently</p>
 
     {% endif %}

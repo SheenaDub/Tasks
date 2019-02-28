@@ -5,13 +5,13 @@
 <div class="encloseAll">
 <ul style="list-style: none;">
 
-
 <form action="/delete" method="POST">
 
  <div class="showOneDisplay">  <li><strong>Task name: </strong>{{ task[0]['taskname'] }} </li>
      <li><strong>Task details:</strong> {{ task[0]['taskdetail'] }}</li>
   <li><strong>Deadline: </strong>{{ task[0]['taskdeadline'] }}</li></div>
 <input type="hidden" name="deleteTask" value=" {{ task[0]['taskname'] }} " />
+    <input type="hidden" name="userID" value=" {{ id }} " />
     <input type="submit" value="Delete this task" class="innerButtons">
 
 </form>
@@ -19,6 +19,7 @@
 
     <form action="/editselected" method="POST" class="innerButtons">
     <input type="hidden" name="editTask" value=" {{ task[0]['taskname'] }} " />
+        <input type="hidden" name="userID" value=" {{ id }} " />
     <input type="submit" value="Edit this task" class="innerButtons">
 
    </form>
