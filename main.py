@@ -1,75 +1,65 @@
-from flask import Flask, render_template, request, redirect, url_for, abort
-
+from flask import Flask, render_template, request, redirect, url_for, abort, session, g
+import os
 
 from db import *
 
 app = Flask(__name__)
-
-loggedIn = False
-userID=0
+app.secret_key = os.urandom(24)
 
 @app.route('/')
 def index():
-    if loggedIn:
-        id=getUserID()
-        createConnection()
-        username = getUserName(id)
-        uname = username[0]['username']
-        return render_template('index.html', id=id, user=uname)
+    if 'user' in session:
+        return render_template('index.html')
     else:
-        return render_template('signup.html')
+        return render_template('login.html', title="Please log in")
 
-@app.route('/signup', methods=['POST'])
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        session.pop('user', None)
+        uname = str(request.form['username'].strip())
+        upass = str(request.form['password'].strip())
+        createConnection()
+        result = checkUser(uname, upass)
+        if result is None:
+            return render_template('login.html', title="Log in failed. Please try again")
+        else:
+            session['user'] = request.form['username']
+            return render_template('index.html', title="Log in successful", user=session['user'])
+    return render_template('login.html', title="Please log in")
+
+@app.route('/signup', methods=['POST','GET'])
 def signup():
+    return render_template('signup.html', title="Please log in after sign up")
+
+
+@app.route('/signupprocess', methods=['POST','GET'])
+def signupprocess():
     uname = str(request.form['username'].strip())
     upass = str(request.form['password'].strip())
     createConnection()
     createUser(uname, upass)
-    return render_template('login.html', title="Please log in")
+    return render_template('login.html', title="Please log in after sign up")
 
-@app.route('/loginB')
-def loginByButton():
-    return render_template('login.html', title="Please log in")
+@app.before_request
+def before_request():
+    if request.endpoint != 'signup' and request.endpoint != 'signupprocess'and request.endpoint != 'index' and request.endpoint != 'login' and request.endpoint != 'loginB':
+        g.user = None
+        if 'user' in session:
+            g.user = session['user']
+        else:
+            return render_template('401.html')
 
-def getUserID():
-    global userID
-    return userID
-
-@app.route('/login', methods=['POST'])
-def login():
-    uname = str(request.form['username'].strip())
-    upass = str(request.form['password'].strip())
-    createConnection()
-    result = checkUser(uname,upass)
-    if result is None:
-        return render_template('login.html', title="Log in failed. Please try again")
-    elif len(result) is 2:
-        id = result[1]
-        global loggedIn
-        loggedIn=True
-        global userID
-        userID=id
-        return render_template('index.html', user=uname, id=id, log=loggedIn)
-    else:
-        return render_template('login.html', title="Log in failed. Please try again")
 
 @app.route('/logout', methods=['POST','GET'])
 def logout():
-    global userID
-    userID=0
-    global loggedIn
-    loggedIn = False
-    print("log out called ", loggedIn)
-    return render_template('login.html', title="Goodbye!", log=loggedIn)
+    session.pop('user', None)
+    return render_template('login.html', title="Goodbye!")
 
 
 @app.route('/createnew')
 def create() -> 'html':
-    id = getUserID()
-    createConnection()
-    username = getUserName(id)
-    uname = username[0]['username']
-    return render_template('createnew.html', the_title='Create a new task', log=loggedIn, id=id, user=uname)
+    return render_template('createnew.html', the_title='Create a new task', user=session['user'])
 
 
 @app.route('/shownewtask', methods=['POST','GET'])
@@ -77,46 +67,34 @@ def showNew() -> 'html':
     name = request.form['taskname']
     detail = request.form['taskdetail']
     deadline = request.form['taskdeadline']
-    id=getUserID()
     createConnection()
-    writeTask(id, name, detail, deadline)
+    writeTask(name, detail, deadline, session['user'])
     createConnection()
-    username= getUserName(id)
-    uname=username[0]['username']
-    return render_template('shownewtask.html', taskname=name, taskdetail=detail, taskdeadline=deadline, id=id, uname=uname, log=loggedIn)
+    return render_template('shownewtask.html', taskname=name, taskdetail=detail, taskdeadline=deadline, uname=session['user'])
 
 @app.route('/showall', methods=['POST','GET'])
 def showAllTasks():
-    id=request.form['userId'].strip()
-    id_as_int=int(id)
     createConnection()
-    tasks = getUserTasksAsList(id_as_int)
-    createConnection()
-    username = getUserName(id_as_int)
-    uname = username[0]['username']
-    return render_template('showall.html', tasks=tasks, uname=uname, id=id, log=loggedIn)
+    tasks = getUserTasksAsList(session['user'])
+    return render_template('showall.html', tasks=tasks, uname=session['user'])
 
 @app.route('/<string:taskname>', methods=['POST','GET'])
 def showSelectedTask(taskname):
-    global userID
-    userID = getUserID()
     createConnection()
     task = getOneTask(taskname)
     if not task:
         abort(404)
         print("list is empty")
-    return render_template('showone.html', task=task, id=userID, log=loggedIn)
+    return render_template('showone.html', task=task)
 
 
 @app.route('/editselected', methods=['POST','GET'])
 def editSelected() -> 'html':
     task = request.form['editTask']
     task = task.strip()
-    id = request.form['userID'].strip()
-    id_as_int = int(id)
     createConnection()
     thisTask = getOneTask(task)
-    return render_template('editselected.html', the_title='Edit a task', thisTask=thisTask, id=id_as_int, log=loggedIn)
+    return render_template('editselected.html', the_title='Edit a task', thisTask=thisTask)
 
 
 @app.route('/editThisTask', methods=['POST','GET'])
@@ -125,11 +103,9 @@ def editThisTask():
     detail = request.form['taskdetail'].strip()
     deadline = request.form['taskdeadline'].strip()
     oldname = request.form['oldName'].strip()
-    id = request.form['userID'].strip()
-    id_as_int = int(id)
     createConnection()
     editTask(name, detail, deadline, oldname)
-    return render_template('index.html', id=id_as_int, log=loggedIn)
+    return render_template('index.html', user=session['user'])
 
 
 @app.errorhandler(404)
@@ -143,25 +119,15 @@ def delTask():
         task = request.form['deleteTask']
         createConnection()
         deleteATaskbyName(task)
-        id = request.form['userID'].strip()
-        id_as_int = int(id)
         createConnection()
-        username = getUserName(id_as_int)
-        uname = username[0]['username']
-    return render_template('index.html', id=id_as_int, log=loggedIn, user=uname)
+    return render_template('index.html', title='Task deleted', user=session['user'])
 
 @app.route("/clearAll", methods=['POST'])
 def clearAllTasks():
-    id = request.form['userId'].strip()
-    id_as_int = int(id)
     createConnection()
-    del_user_tasks(id_as_int)
-    print("clear all called ", loggedIn)
+    del_user_tasks(session['user'])
     createConnection()
-    username = getUserName(id_as_int)
-    uname = username[0]['username']
-    return render_template('index.html', the_title='Tasks cleared!', id=id_as_int, log=loggedIn, user=uname)
-
+    return render_template('index.html', the_title='Tasks cleared!', user=session['user'])
 
 
 

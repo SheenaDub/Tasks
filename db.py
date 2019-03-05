@@ -29,12 +29,11 @@ def closeConnection():
     cursor.close()
     connection.close()
 
-def writeTask(id, name, detail, theDeadline):
-    _SQL = """insert into tasks (userID, taskname, taskdetail, taskdeadline) values (%s, %s, %s, %s)"""
-    print(name, detail, theDeadline, id)
-    print("type of id in write task ", type(id))
+def writeTask(name, detail, theDeadline, uname):
+    _SQL = """insert into tasks (taskname, taskdetail, taskdeadline, username) values (%s, %s, %s, %s)"""
+    print(name, detail, theDeadline, uname)
     try:
-        cursor.execute(_SQL, (id, name, detail, theDeadline))
+        cursor.execute(_SQL, (name, detail, theDeadline, uname))
         connection.commit()
         closeConnection()
         print("db success")
@@ -49,61 +48,37 @@ def createUser(name, pword):
         cursor.execute(_SQL, (name, pword))
         connection.commit()
         closeConnection()
+        print("db success")
     except:
         connection.rollback()
+        print("db fail")
         pass
 
 
 def checkUser(name, pword):
-    _SQL = "select username, userid from users WHERE password = '%s' AND username = '%s'" % (pword,name)
+    _SQL = "select username, userid from users WHERE password = '%s' AND username = '%s'" % (pword, name)
     try:
         cursor.execute(_SQL)
         r = cursor.fetchone()
         closeConnection()
         print(r)
+        print("db success")
         return r
     except:
         connection.rollback()
+        print("db fail")
         pass
 
 
-
-# gets all tasks in task table as json object
-def getTasks():
-    _SQL = """select id, taskname, taskdetail, taskdeadline from tasks"""
-    cursor.execute(_SQL)
-    r = [dict((cursor.description[i][0], value) \
-               for i, value in enumerate(row)) for row in cursor.fetchall()]
-    closeConnection()
-    jsonTasks = json.dumps(r)
-    print("in getTasks. datatype of r: ", type(r))
-    return jsonTasks
-
-# gets all tasks in task table as list
-def getTasksAsList():
-    _SQL = """select id, taskname, taskdetail, taskdeadline from tasks"""
+# gets tasks of one specified user as list - user name as string
+def getUserTasksAsList(name):
+    _SQL = """select id, taskname, taskdetail, taskdeadline from tasks where username ='%s'""" %(name)
     cursor.execute(_SQL)
     r = [dict((cursor.description[i][0], value) \
                for i, value in enumerate(row)) for row in cursor.fetchall()]
     closeConnection()
     return r
 
-# gets tasks of one specified user as list
-def getUserTasksAsList(userID):
-    _SQL = """select id, taskname, taskdetail, taskdeadline from tasks where userID ='%d'""" %(userID)
-    cursor.execute(_SQL)
-    r = [dict((cursor.description[i][0], value) \
-               for i, value in enumerate(row)) for row in cursor.fetchall()]
-    closeConnection()
-    return r
-
-def getUserName(userID):
-    _SQL = """select username from users where userid ='%d'""" %(userID)
-    cursor.execute(_SQL)
-    r = [dict((cursor.description[i][0], value) \
-               for i, value in enumerate(row)) for row in cursor.fetchall()]
-    closeConnection()
-    return r
 
 def getOneTask(name):
     _SQL = "select id, taskname, taskdetail, taskdeadline from tasks WHERE taskname = '%s'" % (name)
@@ -122,9 +97,7 @@ def deleteATaskbyName(name):
         cursor.execute(_SQL)
         connection.commit()
         closeConnection()
-        print("delete success. allegedly")
     except:
-        print("delete error")
         # Rollback in case there is any error
         connection.rollback()
 
@@ -155,11 +128,9 @@ def editTask(name, detail, deadline, oldname):
         pass
 
 
-
-
 # FUNCTION TO del all tasks of one user
-def del_user_tasks(id):
-    _SQL = "DELETE FROM tasks WHERE userID = '%s'" % (id)
+def del_user_tasks(name):
+    _SQL = "DELETE FROM tasks WHERE username = '%s'" % (name)
     try:
         cursor.execute(_SQL)
         connection.commit()
