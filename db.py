@@ -51,11 +51,12 @@ def createUser(name, pword):
         print("db success")
     except:
         connection.rollback()
-        print("db fail")
+        print("db fail in createUser")
         pass
 
 
 def checkUser(name, pword):
+    print(name, pword)
     _SQL = "select username, userid from users WHERE password = '%s' AND username = '%s'" % (pword, name)
     try:
         cursor.execute(_SQL)
@@ -66,7 +67,7 @@ def checkUser(name, pword):
         return r
     except:
         connection.rollback()
-        print("db fail")
+        print("db fail in checkUser")
         pass
 
 

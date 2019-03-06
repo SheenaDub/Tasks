@@ -19,6 +19,7 @@ def login():
         session.pop('user', None)
         uname = str(request.form['username'].strip())
         upass = str(request.form['password'].strip())
+        print(uname,upass)
         createConnection()
         result = checkUser(uname, upass)
         if result is None:
@@ -132,4 +133,4 @@ def clearAllTasks():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=80)
